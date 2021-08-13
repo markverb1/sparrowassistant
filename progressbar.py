@@ -21,6 +21,7 @@ def newGame():
     global score
     global level
     global bar
+    global bar2
     global bardisplay
     global segments
     global proLevel
@@ -33,6 +34,7 @@ def newGame():
     score = 0
     level = 1
     bar = []
+    bar2 = []
     bardisplay = ""
     segments = ""
     proLevel = 10
@@ -47,11 +49,14 @@ def shutdown():
     sleep(2)
     quit()
 
-# Begin menu when file starts up
-def progressbar():
+def startup():
     clear()
     print('P r o g r e s s b a r  9 5\n\n\nNow Loading...')
     sleep(4)
+    beginMenu()
+
+# Begin menu normally
+def beginMenu():
     clear()
     print('╔════════════════════════╗\n║   B e g i n  M e n u   ║\n║    1 - New Game        ║\n║    2 - Shutdown        ║\n╚════════════════════════╝\n')
     choice = input()
@@ -60,8 +65,23 @@ def progressbar():
     elif choice == "2":
         shutdown()
     else:
-        progressbar()
+        beginMenu()
 
+# BIOS and system select when file starts up
+def progressbar():
+    # fancy bios text
+    energyStar = colored('Energy Star Powered', "yellow")
+
+    clear()
+    print('Sparrow Assistant Enhanced Text BIOS.80.1 -', energyStar)
+    print('Ver. 05-04-2021\n\n')
+    print('1. Progressbar 95')
+    choice = input()
+    if choice == "1":
+        startup()
+    else:
+        progressbar()
+        
 # Begin menu during gameplay
 def pauseBeginMenu():
     clear()
@@ -97,8 +117,8 @@ while True:
     elif seg == 3:
         seg_art = colored("╔══╗\n║~~║\n║~~║\n╚══╝", "yellow")
     elif seg == 4:
-        seg_art = colored("╔══╗\n║..║\n║..║\n╚══╝", "grey")
-    else:
+        seg_art = colored("╔══╗\n║..║\n║..║\n╚══╝", "white")
+    elif seg == 5:
         seg_art = colored("╔══╗\n║**║\n║**║\n╚══╝", "cyan")
 
     # green segment check
@@ -106,7 +126,8 @@ while True:
     if greenseg == 95:
         seg = 6
         seg_art = colored("╔══╗\n║$$║\n║$$║\n╚══╝", "green")
-        print('Level', level)
+
+    print('Level', level)
     if isPro == True:
         print('< Pro >')
 
@@ -139,9 +160,11 @@ while True:
     if seg == 0 and catch == "c":
         progressbar = progressbar + 5
         bar.append(colored("[]", "blue"))
+        bar2.append("Blue")
         score = score + 5
     elif seg == 1 and catch == "c":
         bar = []
+        bar2 = []
         bardisplay = ""
         lives = lives - 1
         progressbar = 0
@@ -150,19 +173,22 @@ while True:
     elif seg == 2 and catch == "c":
         if progressbar == 0:
             continue
-        if bar[-1] == "Orange":
+        if bar2[-1] == "Orange":
             progressbar2 = progressbar2 - 5
             progressbar = progressbar - 5
             bar.pop(-1)
+            bar2.pop(-1)
             score = score + 5
         else:
             progressbar = progressbar - 5
             bar.pop(-1)
+            bar2.pop(-1)
             score + score - 5
     elif seg == 3 and catch == "c":
         progressbar = progressbar + 5
         progressbar2 = progressbar2 + 5
         bar.append(colored("[]", "yellow"))
+        bar2.append("Orange")
     elif seg == 4 and catch == "c":
         continue
     elif seg == 5 and catch == "c":
@@ -171,12 +197,17 @@ while True:
             progressbar = progressbar + 10
             bar.append(colored("[]", "blue"))
             bar.append(colored("[]", "blue"))
+            bar2.append("Blue")
+            bar2.append("Blue")
             score = score + 10
         else:
             progressbar = progressbar + 15
             bar.append(colored("[]", "blue"))
             bar.append(colored("[]", "blue"))
             bar.append(colored("[]", "blue"))
+            bar2.append("Blue")
+            bar2.append("Blue")
+            bar2.append("Blue")
             score = score + 15
     elif seg == 6 and catch == "c":
         progressbar = 100
@@ -185,11 +216,12 @@ while True:
 
     if catch == "q":
         print('Game Over! Thanks for playing!')
-        break
+        sleep(3)
+        beginMenu()
 
     if catch == "credits":
         clear()
-        print('ProgressCLI95 0.2.1 Development Build 1')
+        print('ProgressCLI95 0.2.1 Development Build 2')
         print('Original code (0.1) by Setapdede')
         print('Improved code (0.2+) by BurningInfern0')
         print('Made for use with Sparrow Assistant by pivinx1')
@@ -213,6 +245,7 @@ while True:
             print('\nCongratulations! You are the Professional!')
             print('Pro Label acquired!')
         bar = []
+        bar2 = []
         bardisplay = ""
         segments = ""
         progressbar = 0
