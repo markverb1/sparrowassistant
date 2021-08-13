@@ -62,8 +62,6 @@ def progressbar():
     else:
         progressbar()
 
-progressbar()
-
 # Begin menu during gameplay
 def pauseBeginMenu():
     clear()
