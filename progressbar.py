@@ -4,18 +4,6 @@ from os import system, name
 from time import sleep
 from termcolor import colored
 
-# Variables
-global progressbar
-global progressbar2
-global lives
-global score
-global level
-global bar
-global bardisplay
-global segments
-global proLevel
-global isPro
-
 # Clear screen function
 def clear():
     if name == "nt":
@@ -25,6 +13,20 @@ def clear():
 
 # Resets variables for new game
 def newGame():
+
+    # Variables
+    global progressbar
+    global progressbar2
+    global lives
+    global score
+    global level
+    global bar
+    global bardisplay
+    global segments
+    global proLevel
+    global isPro
+
+    # setting global variables
     progressbar = 0
     progressbar2 = 0
     lives = 3
@@ -36,15 +38,27 @@ def newGame():
     proLevel = 10
     isPro = False
 
+# shutdown woohoo
+def shutdown():
+    clear()
+    print('P l e a s e  w a i t . . .\n\n\n')
+    sleep(3)
+    print(colored('It is now safe to close your Command Line Interface.', "yellow"))
+    sleep(2)
+    quit()
+
 # Begin menu when file starts up
 def progressbar():
+    clear()
+    print('P r o g r e s s b a r  9 5\n\n\nNow Loading...')
+    sleep(4)
     clear()
     print('╔════════════════════════╗\n║   B e g i n  M e n u   ║\n║    1 - New Game        ║\n║    2 - Shutdown        ║\n╚════════════════════════╝\n')
     choice = input()
     if choice == "1":
         newGame()
     elif choice == "2":
-        quit()
+        shutdown()
     else:
         progressbar()
 
@@ -60,7 +74,7 @@ def pauseBeginMenu():
     elif choice == "2":
         newGame()
     elif choice == "3":
-        quit()
+        shutdown()
     else:
         pauseBeginMenu()
 
